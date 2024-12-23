@@ -42,7 +42,7 @@ public class Car extends Vehicle{
 
         @Override
         public boolean isAvailableForRental() {
-            return isAvailable();
+            return getIsAvailable();
         }
 
         @Override
@@ -53,7 +53,7 @@ public class Car extends Vehicle{
                     "\nCar Number = " + getVehicleId() +
                     "\nModel = " + getModel() +
                     "\nBase Rental Rate = " + getBaseRentalRate() +
-                    "\nIs Available = " + isAvailable() + "\n";
+                    "\nIs Available = " + getIsAvailable() + "\n";
         }
 
 
