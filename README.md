@@ -1,4 +1,4 @@
-# VehicleManagementSystem
+# Vehicle Management System
 
 An OOP template for building Vehicle Management Systems in Java.
 
