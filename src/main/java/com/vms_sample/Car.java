@@ -3,14 +3,15 @@ package com.vms_sample;
 public class Car extends Vehicle{
 
         private int numberOfSeats;
-        private boolean hasAC;
 
-        public Car(String vehicleId, String model, double baseRentalRate, boolean isAvailable, int numberOfSeats, boolean hasAC) {
+        // Constructor
+        public Car(String vehicleId, String model, double baseRentalRate, boolean isAvailable, int numberOfSeats) {
             super(vehicleId, model, baseRentalRate, isAvailable);
             this.numberOfSeats = numberOfSeats;
-            this.hasAC = hasAC;
         }
 
+
+        // Getters and Setters
         public int getNumberOfSeats() {
             return numberOfSeats;
         }
@@ -19,23 +20,14 @@ public class Car extends Vehicle{
             this.numberOfSeats = numberOfSeats;
         }
 
-        public boolean isHasAC() {
-            return hasAC;
-        }
-
-        public void setHasAC(boolean hasAC) {
-            this.hasAC = hasAC;
-        }
 
 
         @Override
         public double calculateRentalCost(int days) {
+
             double rentalCost = getBaseRentalRate() * days;
 
-            if (hasAC) {
-                rentalCost += 100;
-            }
-
+            System.out.println("The rental cost for " + getModel() + " for " + days + " is $" + rentalCost);
             return rentalCost;
         }
 
@@ -48,10 +40,9 @@ public class Car extends Vehicle{
         @Override
         public String toString() {
             return "--Car--\n" +
-                    "Number Of Seats = " + numberOfSeats +
-                    "\nAC = " + hasAC +
+                    "Model = " + getModel() +
                     "\nCar Number = " + getVehicleId() +
-                    "\nModel = " + getModel() +
+                    "\nNumber Of Seats = " + numberOfSeats +
                     "\nBase Rental Rate = " + getBaseRentalRate() +
                     "\nIs Available = " + getIsAvailable() + "\n";
         }
