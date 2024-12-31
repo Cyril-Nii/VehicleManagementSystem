@@ -5,13 +5,15 @@ public class Motorcycle extends Vehicle implements Rentable {
     private boolean hasSidecar;
     private boolean isOffroad;
     private final double baseRentalRate = 80.00;
+    private double engineCapacity;
 
     // Constructor
-    public Motorcycle(String vehicleId, String manufacturer, String model, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, boolean hasSidecar, boolean isOffroad) {
-        super(vehicleId, manufacturer, model, isAvailable, color, horsepower, transmissionType);
+    public Motorcycle(String vehicleId, String manufacturer, String model, RentalAgency rentalAgency, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, boolean hasSidecar, boolean isOffroad, double engineCapacity) {
+        super(vehicleId, manufacturer, model, rentalAgency, isAvailable, color, horsepower, transmissionType);
 
         this.hasSidecar = hasSidecar;
         this.isOffroad = isOffroad;
+        this.engineCapacity = engineCapacity;
     }
 
     // Getters and Setters
@@ -31,7 +33,13 @@ public class Motorcycle extends Vehicle implements Rentable {
         this.isOffroad = isOffroad;
     }
 
+    public double getEngineCapacity() {
+        return engineCapacity;
+    }
 
+    public void setEngineCapacity(double engineCapacity) {
+        this.engineCapacity = engineCapacity;
+    }
 
     @Override
     public double calculateRentalCost(int days) {
@@ -53,44 +61,43 @@ public class Motorcycle extends Vehicle implements Rentable {
         }
     }
 
-
     @Override
     public boolean isAvailableForRental() {
         return isAvailable();
     }
 
-
     @Override
     public boolean rent(Customer customer, int days) {
-        if (isAvailableForRental() && customer.isEligible()) {
-            setIsAvailable(false);
-            customer.addRental(this);   
-            setMotorcyclesRented(getMotorcyclesRented() + 1);
+        if (isAvailable()) {
+            setAvailable(false);
+            customer.addRental(this);
+            getRentalAgency().setMotorcyclesRented(getRentalAgency().getMotorcyclesRented() + 1);
             return true;
         }
         return false;
     }
 
-
     @Override
     public boolean returnVehicle() {
-        setIsAvailable(true);
+        this.setIsAvailable(true);
         return true;
     }
 
-
-
     @Override
     public String toString() {
-        return "--Motorcycle--\n" +
-                "Model = " + getModel() +
-                "\nMotorcycle Number = " + getVehicleId() +
-                "\nHas Sidecar = " + hasSidecar +
-                "\nIs Offroad = " + isOffroad +
-                "\nBase Rental Rate = " + getBaseRentalRate() +
-                "\nIs Available = " + isAvailable() + "\n";
+        return "Motorcycle{" +
+                "vehicleId='" + getVehicleId() + '\'' +
+                ", manufacturer='" + getManufacturer() + '\'' +
+                ", model='" + getModel() + '\'' +
+                ", isAvailable=" + isAvailable() +
+                ", color='" + getColor() + '\'' +
+                ", horsepower=" + getHorsepower() +
+                ", transmissionType=" + getTransmissionType() +
+                ", engineCapacity=" + engineCapacity +
+                ", hasSidecar=" + hasSidecar +
+                ", isOffroad=" + isOffroad +
+                '}';
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -107,12 +114,8 @@ public class Motorcycle extends Vehicle implements Rentable {
         return getVehicleId().equals(motorcycle.getVehicleId());
     }
 
-
     @Override
     public int hashCode() {
         return getVehicleId().hashCode();
     }
-
-
-
 }

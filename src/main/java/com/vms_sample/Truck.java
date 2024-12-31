@@ -1,21 +1,19 @@
 package com.vms_sample;
 
-public class Truck extends Vehicle implements Rentable{
+public class Truck extends Vehicle implements Rentable {
 
     private double cargoCapacity;
     private boolean hasTrailer;
-    private final double baseRentalRate = 100.00;
 
     // Constructor
     public Truck(String vehicleId, String manufacturer, String model, RentalAgency rentalAgency, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, double cargoCapacity, boolean hasTrailer) {
-        super(vehicleId, manufacturer, model, isAvailable, color, horsepower, transmissionType);
+        super(vehicleId, manufacturer, model, rentalAgency, isAvailable, color, horsepower, transmissionType);
 
         // Validate cargo capacity
         if (cargoCapacity <= 0) {
             throw new IllegalArgumentException("Cargo capacity must be greater than 0");
         }
 
-        this.rentalAgency = rentalAgency;
         this.cargoCapacity = cargoCapacity;
         this.hasTrailer = hasTrailer;
     }
@@ -34,15 +32,13 @@ public class Truck extends Vehicle implements Rentable{
         }
     }
 
-    public boolean getHasTrailer() {
+    public boolean hasTrailer() {
         return hasTrailer;
     }
 
     public void setHasTrailer(boolean hasTrailer) {
         this.hasTrailer = hasTrailer;
     }
-
-
 
     @Override
     public double calculateRentalCost(int days) {
@@ -69,7 +65,6 @@ public class Truck extends Vehicle implements Rentable{
         if (isAvailableForRental() && customer.isEligible()) {
             setIsAvailable(false);
             customer.addRental(this);          
-            setTrucksRented(getTrucksRented() + 1);
             return true;
         }
         return false;
@@ -86,21 +81,19 @@ public class Truck extends Vehicle implements Rentable{
         return isAvailable();
     }
 
-
-
-
-
-    
-
     @Override
     public String toString() {
-        return "--Truck--\n" +
-                "Model = " + getModel() +
-                "\nTruck Number = " + getVehicleId() +
-                "\nCargo Capacity = " + cargoCapacity +
-                "\nHas Trailer = " + hasTrailer +
-                "\nBase Rental Rate = " + getBaseRentalRate() +
-                "\nIs Available = " + isAvailable() + "\n";
+        return "Truck{" +
+                "vehicleId='" + getVehicleId() + '\'' +
+                ", manufacturer='" + getManufacturer() + '\'' +
+                ", model='" + getModel() + '\'' +
+                ", isAvailable=" + isAvailable() +
+                ", color='" + getColor() + '\'' +
+                ", horsepower=" + getHorsepower() +
+                ", transmissionType=" + getTransmissionType() +
+                ", cargoCapacity=" + cargoCapacity +
+                ", hasTrailer=" + hasTrailer +
+                '}';
     }
 
     @Override

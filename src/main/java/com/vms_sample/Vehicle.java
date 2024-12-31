@@ -6,10 +6,12 @@ public abstract class Vehicle {
     private String vehicleId;
     private String manufacturer;
     private String model;
+    private RentalAgency rentalAgency;
     private boolean isAvailable;
     private int horsepower;
     private String color;
     private TransmissionType transmissionType;
+    protected double baseRentalRate;
 
     /**
      * Enum for Transmission Type.
@@ -22,7 +24,7 @@ public abstract class Vehicle {
     }
 
     // Constructors with validation
-    public Vehicle(String vehicleId, String manufacturer, String model, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType) {
+    public Vehicle(String vehicleId, String manufacturer, String model, RentalAgency rentalAgency, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType) {
         // Validate vehicle ID
         if (vehicleId == null || vehicleId.isBlank()) {
             throw new IllegalArgumentException("Vehicle ID cannot be null or blank");
@@ -57,6 +59,7 @@ public abstract class Vehicle {
         this.vehicleId = vehicleId;
         this.manufacturer = manufacturer;
         this.model = model;
+        this.rentalAgency = rentalAgency;
         this.isAvailable = isAvailable;
         this.color = color;
         this.horsepower = horsepower;
@@ -68,101 +71,74 @@ public abstract class Vehicle {
         return vehicleId;
     }
 
-    public boolean setVehicleId(String vehicleId) {
-        if (vehicleId == null || vehicleId.isBlank()) {
-            return false;
-        } else {
-            this.vehicleId = vehicleId;
-            return true;
-        }
+    public void setVehicleId(String vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
     public String getManufacturer() {
         return manufacturer;
     }
 
-    public boolean setManufacturer(String manufacturer) {
-        if (manufacturer == null || manufacturer.isBlank()) {
-            return false;
-        } else {
-            this.manufacturer = manufacturer;
-            return true;
-        }
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public String getModel() {
         return model;
     }
 
-    public boolean setModel(String model) {
-        if (model == null || model.isBlank()) {
-            return false;
-        } else {
-            this.model = model;
-            return true;
-        }
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    public double getBaseRentalRate() {
-        return baseRentalRate;
+    public RentalAgency getRentalAgency() {
+        return rentalAgency;
     }
 
-
-    /**
-     * It should have been getIsAvailable but In Java, the convention
-     * for boolean getters is to use the is prefix.
-     */
+    public void setRentalAgency(RentalAgency rentalAgency) {
+        this.rentalAgency = rentalAgency;
+    }
 
     public boolean isAvailable() {
         return isAvailable;
     }
 
-    public void setIsAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     public String getColor() {
         return color;
     }
 
-    public boolean setColor(String color) {
-        if (color == null || color.isBlank()) {
-            return false;
-        } else {
-            this.color = color;
-            return true;
-        }
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public int getHorsepower() {
         return horsepower;
     }
 
-    public boolean setHorsepower(int horsepower) {
-        if (horsepower <= 0) {
-            return false;
-        } else {
-            this.horsepower = horsepower;
-            return true;
-        }
+    public void setHorsepower(int horsepower) {
+        this.horsepower = horsepower;
     }
 
     public TransmissionType getTransmissionType() {
         return transmissionType;
     }
 
-    public boolean setTransmissionType(TransmissionType transmissionType) {
-        if (transmissionType == null) {
-            return false;
-        } else {
-            this.transmissionType = transmissionType;
-            return true;
-        }
+    public void setTransmissionType(TransmissionType transmissionType) {
+        this.transmissionType = transmissionType;
     }
 
+    public double getBaseRentalRate() {
+        return baseRentalRate;
+    }
 
+    public void setBaseRentalRate(double baseRentalRate) {
+        this.baseRentalRate = baseRentalRate;
+    }
 
-    // Abstract method for rental calculation
     public abstract double calculateRentalCost(int days);
 
 

@@ -9,8 +9,8 @@ public class Car extends Vehicle implements Rentable {
     private final static double baseRentalRate = 120.00;
 
     // Constructor
-    public Car(String vehicleId, String manufacturer, String model, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, int numberOfSeats, boolean hasAC, boolean hasLeatherSeats, boolean hasGPS) {
-        super(vehicleId, manufacturer, model, isAvailable, color, horsepower, transmissionType);
+    public Car(String vehicleId, String manufacturer, String model, RentalAgency rentalAgency, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, int numberOfSeats, boolean hasAC, boolean hasLeatherSeats, boolean hasGPS) {
+        super(vehicleId, manufacturer, model, rentalAgency, isAvailable, color, horsepower, transmissionType);
 
         // Validate number of seats
         if (numberOfSeats <= 0) {
@@ -28,16 +28,15 @@ public class Car extends Vehicle implements Rentable {
         return numberOfSeats;
     }
 
-    public boolean setNumberOfSeats(int numberOfSeats) {
+    public void setNumberOfSeats(int numberOfSeats) {
         if (numberOfSeats <= 0) {
-            return false;
+            throw new IllegalArgumentException("Number of seats must be greater than 0");
         } else {
             this.numberOfSeats = numberOfSeats;
-            return true;
         }
     }
 
-    public boolean getHasAC() {
+    public boolean hasAC() {
         return hasAC;
     }
 
@@ -45,7 +44,7 @@ public class Car extends Vehicle implements Rentable {
         this.hasAC = hasAC;
     }
 
-    public boolean getHasLeatherSeats() {
+    public boolean hasLeatherSeats() {
         return hasLeatherSeats;
     }
 
@@ -53,7 +52,7 @@ public class Car extends Vehicle implements Rentable {
         this.hasLeatherSeats = hasLeatherSeats;
     }
 
-    public boolean getHasGPS() {
+    public boolean hasGPS() {
         return hasGPS;
     }
 
@@ -61,13 +60,10 @@ public class Car extends Vehicle implements Rentable {
         this.hasGPS = hasGPS;
     }
 
-
-
     @Override
     public boolean isAvailableForRental() {
         return isAvailable();
     }
-
 
     @Override
     public double calculateRentalCost(int days) {
@@ -98,16 +94,14 @@ public class Car extends Vehicle implements Rentable {
     }
 
     @Override
-    public boolean rent(Customer customer, int days){
-        if (isAvailableForRental() && customer.isEligible()) {
-            setIsAvailable(false);
-            setCarsRented(getCarsRented() + 1);
-            customer.addRental(this);   
+    public boolean rent(Customer customer, int days) {
+        if (isAvailable()) {
+            setAvailable(false);
+            customer.addRental(this);
+            getRentalAgency().setCarsRented(getRentalAgency().getCarsRented() + 1);
             return true;
         }
-
         return false;
-
     }
 
     @Override
@@ -115,10 +109,6 @@ public class Car extends Vehicle implements Rentable {
         setIsAvailable(true);
         return true;
     }
-
-
-
-
 
     //Override the to string method
     @Override
@@ -138,7 +128,6 @@ public class Car extends Vehicle implements Rentable {
                 '}';
 
     }
-
 
     @Override
     public boolean equals(Object obj) {

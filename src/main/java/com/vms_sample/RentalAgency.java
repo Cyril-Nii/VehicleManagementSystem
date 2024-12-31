@@ -12,11 +12,6 @@ public class RentalAgency {
     private List<Vehicle> fleet;
     private List<RentalTransaction> transactions;
 
-    private int carsRented;
-    private int trucksRented;
-    private int motorcyclesRented;
-    private int totalRented;
-
     
 
     public RentalAgency(String AgencyName, String AgencyAddress, String AgencyPhoneNumber) {
@@ -29,34 +24,6 @@ public class RentalAgency {
 
 
 
-
-    public int getCarsRented() {
-        return carsRented;
-    }
-
-    public void setCarsRented(int carsRented) {
-        this.carsRented = carsRented;
-    }
-
-    public int getTrucksRented() {
-        return trucksRented;
-    }
-
-    public void setTrucksRented(int trucksRented) {
-        this.trucksRented = trucksRented;
-    }
-
-    public int getMotorcyclesRented() {
-        return motorcyclesRented;
-    }
-
-    public void setMotorcyclesRented(int motorcyclesRented) {
-        this.motorcyclesRented = motorcyclesRented;
-    }
-
-    public int getTotalRented() {
-        return trucksRented + carsRented + motorcyclesRented;
-    }
 
     public String getAgencyName() {
         return AgencyName;
@@ -106,10 +73,7 @@ public class RentalAgency {
     public String generateReport() {
         return "Rental Agency Report" +
                 "\nTotal Fleet Size: " + fleet.size() +
-                "\nTotal Transactions: " + transactions.size() +
-                "\nCars Rented: " + carsRented +
-                "\nTrucks Rented: " + trucksRented +
-                "\nMotorcycles Rented: " + motorcyclesRented;
+                "\nTotal Transactions: " + transactions.size();
     }
 
 
