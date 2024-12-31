@@ -1,5 +1,9 @@
 package com.vms_sample;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Customer {
 
     private String name;
@@ -8,7 +12,8 @@ public class Customer {
     private String phoneNumber;
     private String licenseId;
     private boolean isEligible;
-
+    private List<Vehicle> rentalHistory;
+    private List<Vehicle> currentRentals;
 
     public Customer(String name, String customerId, String address, String phoneNumber, String licenseId) {
         this.name = name;
@@ -16,58 +21,38 @@ public class Customer {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.licenseId = licenseId;
+        this.isEligible = true;
+        this.rentalHistory = new ArrayList<>();
+        this.currentRentals = new ArrayList<>();
     }
+
 
 
     // Getters and setters
-    public String getName() {
-        return name;
+    public boolean isEligible() {
+        return isEligible;
     }
 
-    public boolean setName(String name) {
-        this.name = name;
-        return true;
+    public void setEligible(boolean eligible) {
+        isEligible = eligible;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public List<Vehicle> getRentalHistory() {
+        return rentalHistory;
     }
 
-    public boolean setCustomerId(String customerId) {
-        this.customerId = customerId;
-        return true;
+    public List<Vehicle> getCurrentRentals() {
+        return currentRentals;
     }
 
-    public String getAddress() {
-        return address;
+    public void addRental(Vehicle vehicle) {
+        currentRentals.add(vehicle);
     }
 
-    public boolean setAddress(String address) {
-        this.address = address;
-        return true;
+    public void returnRental(Vehicle vehicle) {
+        currentRentals.remove(vehicle);
+        rentalHistory.add(vehicle);
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
     }
-
-    public boolean setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return true;
-    }
-
-    public String getLicenseId() {
-        return licenseId;
-    }
-
-    public boolean setLicenseId(String licenseId) {
-        this.licenseId = licenseId;
-        return true;
-    }
-
-
-    // Manage customer rental history
-    //Track current rentals
-    //Implement rental eligibility checks
-
 }

@@ -9,8 +9,8 @@ public class Car extends Vehicle implements Rentable {
     private final static double baseRentalRate = 120.00;
 
     // Constructor
-    public Car(String vehicleId, String manufacturer, String model, double baseRentalRate, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, int numberOfSeats, boolean hasAC, boolean hasLeatherSeats, boolean hasGPS) {
-        super(vehicleId, manufacturer, model, baseRentalRate, isAvailable, color, horsepower, transmissionType);
+    public Car(String vehicleId, String manufacturer, String model, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, int numberOfSeats, boolean hasAC, boolean hasLeatherSeats, boolean hasGPS) {
+        super(vehicleId, manufacturer, model, isAvailable, color, horsepower, transmissionType);
 
         // Validate number of seats
         if (numberOfSeats <= 0) {
@@ -99,8 +99,10 @@ public class Car extends Vehicle implements Rentable {
 
     @Override
     public boolean rent(Customer customer, int days){
-        if (isAvailableForRental()){
+        if (isAvailableForRental() && customer.isEligible()) {
             setIsAvailable(false);
+            setCarsRented(getCarsRented() + 1);
+            customer.addRental(this);   
             return true;
         }
 
@@ -119,6 +121,23 @@ public class Car extends Vehicle implements Rentable {
 
 
     //Override the to string method
+    @Override
+    public String toString() {
+        return "Car{" +
+                "vehicleId='" + getVehicleId() + '\'' +
+                ", manufacturer='" + getManufacturer() + '\'' +
+                ", model='" + getModel() + '\'' +
+                ", isAvailable=" + isAvailable() +
+                ", color='" + getColor() + '\'' +
+                ", horsepower=" + getHorsepower() +
+                ", transmissionType=" + getTransmissionType() +
+                ", numberOfSeats=" + numberOfSeats +
+                ", hasAC=" + hasAC +
+                ", hasLeatherSeats=" + hasLeatherSeats +
+                ", hasGPS=" + hasGPS +
+                '}';
+
+    }
 
 
     @Override

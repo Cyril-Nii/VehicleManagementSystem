@@ -7,8 +7,8 @@ public class Motorcycle extends Vehicle implements Rentable {
     private final double baseRentalRate = 80.00;
 
     // Constructor
-    public Motorcycle(String vehicleId, String manufacturer, String model, double baseRentalRate, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, boolean hasSidecar, boolean isOffroad) {
-        super(vehicleId, manufacturer, model, baseRentalRate, isAvailable, color, horsepower, transmissionType);
+    public Motorcycle(String vehicleId, String manufacturer, String model, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, boolean hasSidecar, boolean isOffroad) {
+        super(vehicleId, manufacturer, model, isAvailable, color, horsepower, transmissionType);
 
         this.hasSidecar = hasSidecar;
         this.isOffroad = isOffroad;
@@ -62,9 +62,10 @@ public class Motorcycle extends Vehicle implements Rentable {
 
     @Override
     public boolean rent(Customer customer, int days) {
-        if (isAvailableForRental()) {
+        if (isAvailableForRental() && customer.isEligible()) {
             setIsAvailable(false);
-            // Additional logic for renting the motorcycle
+            customer.addRental(this);   
+            setMotorcyclesRented(getMotorcyclesRented() + 1);
             return true;
         }
         return false;
@@ -74,7 +75,6 @@ public class Motorcycle extends Vehicle implements Rentable {
     @Override
     public boolean returnVehicle() {
         setIsAvailable(true);
-        // Additional logic for returning the motorcycle
         return true;
     }
 

@@ -6,7 +6,6 @@ public abstract class Vehicle {
     private String vehicleId;
     private String manufacturer;
     private String model;
-    private double baseRentalRate;
     private boolean isAvailable;
     private int horsepower;
     private String color;
@@ -23,7 +22,7 @@ public abstract class Vehicle {
     }
 
     // Constructors with validation
-    public Vehicle(String vehicleId, String manufacturer, String model, double baseRentalRate, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType) {
+    public Vehicle(String vehicleId, String manufacturer, String model, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType) {
         // Validate vehicle ID
         if (vehicleId == null || vehicleId.isBlank()) {
             throw new IllegalArgumentException("Vehicle ID cannot be null or blank");
@@ -44,10 +43,6 @@ public abstract class Vehicle {
             throw new IllegalArgumentException("Color cannot be null or blank");
         }
 
-        // Validate base rental rate
-        if (baseRentalRate <= 0) {
-            throw new IllegalArgumentException("Base rental rate must be greater than 0");
-        }
 
         // Validate horsepower
         if (horsepower <= 0) {
@@ -62,7 +57,6 @@ public abstract class Vehicle {
         this.vehicleId = vehicleId;
         this.manufacturer = manufacturer;
         this.model = model;
-        this.baseRentalRate = baseRentalRate;
         this.isAvailable = isAvailable;
         this.color = color;
         this.horsepower = horsepower;
@@ -113,14 +107,6 @@ public abstract class Vehicle {
         return baseRentalRate;
     }
 
-    public boolean setBaseRentalRate(double baseRentalRate) {
-        if (baseRentalRate <= 0) {
-            return false;
-        } else {
-            this.baseRentalRate = baseRentalRate;
-            return true;
-        }
-    }
 
     /**
      * It should have been getIsAvailable but In Java, the convention
