@@ -22,8 +22,6 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.licenseId = licenseId;
         this.isEligible = true;
-        this.rentalHistory = new ArrayList<>();
-        this.currentRentals = new ArrayList<>();
     }
 
 
@@ -55,4 +53,3 @@ public class Customer {
     }
 
     }
-}
