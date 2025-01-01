@@ -11,7 +11,7 @@ public abstract class Vehicle {
     private int horsepower;
     private String color;
     private TransmissionType transmissionType;
-    protected double baseRentalRate;
+    private double baseRentalRate;
 
     /**
      * Enum for Transmission Type.
@@ -135,13 +135,14 @@ public abstract class Vehicle {
         return baseRentalRate;
     }
 
-    public void setBaseRentalRate(double baseRentalRate) {
-        this.baseRentalRate = baseRentalRate;
-    }
 
-    public abstract double calculateRentalCost(int days);
 
+   // Abstract method for calculating rental cost
+   public abstract double calculateRentalCost(int days);
 
     // Abstract method for checking availability of vehicle for rent
     public abstract boolean isAvailableForRental();
+
+    // Abstract method for renting a vehicle
+    public abstract boolean rent(Customer customer, int days);
 }

@@ -60,6 +60,14 @@ public class Car extends Vehicle implements Rentable {
         this.hasGPS = hasGPS;
     }
 
+    public double getBaseRentalRate() {
+        return baseRentalRate;
+    }
+
+
+
+
+
     @Override
     public boolean isAvailableForRental() {
         return isAvailable();
@@ -98,7 +106,7 @@ public class Car extends Vehicle implements Rentable {
         if (isAvailable()) {
             setAvailable(false);
             customer.addRental(this);
-            getRentalAgency().setCarsRented(getRentalAgency().getCarsRented() + 1);
+            getRentalAgency().setCarsRented(this.getRentalAgency().getCarsRented() + 1);
             return true;
         }
         return false;

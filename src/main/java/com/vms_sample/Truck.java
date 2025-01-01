@@ -45,7 +45,7 @@ public class Truck extends Vehicle implements Rentable {
         if (days <= 0) {
             return 0.0;
         } else {
-            double rentalRate = baseRentalRate;
+            double rentalRate = super.getBaseRentalRate();
 
             if (cargoCapacity > 1000) {
                 rentalRate += 100.00;
@@ -61,18 +61,18 @@ public class Truck extends Vehicle implements Rentable {
 
     @Override
     public boolean rent(Customer customer, int days) {
-        
         if (isAvailableForRental() && customer.isEligible()) {
-            setIsAvailable(false);
-            customer.addRental(this);          
+            super.setAvailable(false);
+
             return true;
         }
+
         return false;
     }
 
     @Override
     public boolean returnVehicle() {
-        setIsAvailable(true);
+        setAvailable(true);
         return true;
     }
 
