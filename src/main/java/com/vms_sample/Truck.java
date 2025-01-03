@@ -4,6 +4,7 @@ public class Truck extends Vehicle implements Rentable {
 
     private double cargoCapacity;
     private boolean hasTrailer;
+    private static final double baseRentalRate = 80;
 
     // Constructor
     public Truck(String vehicleId, String manufacturer, String model, RentalAgency rentalAgency, boolean isAvailable, String color, int horsepower, TransmissionType transmissionType, double cargoCapacity, boolean hasTrailer) {
@@ -40,12 +41,16 @@ public class Truck extends Vehicle implements Rentable {
         this.hasTrailer = hasTrailer;
     }
 
+    public double getBaseRentalRate() {
+        return baseRentalRate;
+    }
+
     @Override
     public double calculateRentalCost(int days) {
         if (days <= 0) {
             return 0.0;
         } else {
-            double rentalRate = super.getBaseRentalRate();
+            double rentalRate = getBaseRentalRate();
 
             if (cargoCapacity > 1000) {
                 rentalRate += 100.00;
@@ -62,7 +67,7 @@ public class Truck extends Vehicle implements Rentable {
     @Override
     public boolean rent(Customer customer, int days) {
         if (isAvailableForRental() && customer.isEligible()) {
-            super.setAvailable(false);
+            setAvailable(false);
 
             return true;
         }
