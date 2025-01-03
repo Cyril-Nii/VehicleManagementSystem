@@ -6,8 +6,6 @@ public interface Rentable {
 
     double calculateRentalCost(int days);
 
-    boolean rent(Customer customer, int days);
-
     boolean returnVehicle();
 
 }

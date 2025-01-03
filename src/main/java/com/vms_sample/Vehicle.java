@@ -145,4 +145,6 @@ public abstract class Vehicle {
 
     // Abstract method for renting a vehicle
     public abstract boolean rent(Customer customer, int days);
+
+    // Abstract method for returning a vehicle
 }
